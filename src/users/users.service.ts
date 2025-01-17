@@ -17,4 +17,17 @@ export class UsersService {
     async getAllUsers() {
         return prisma.user.findMany();
     }
+
+    async deleteUser(id: number) {
+        try {
+            const user = await prisma.user.delete({
+                where: {
+                    id: id,
+                },
+            });
+            return user;
+        }catch (error) {
+            throw new Error(`User with id ${id} not found`);
+        }
+    }
 }
